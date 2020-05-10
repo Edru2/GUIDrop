@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
+	<TriggerPackage />
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
 	<ScriptPackage>
 		<ScriptGroup isActive="yes" isFolder="yes">
 			<name>GUIDrop</name>
@@ -218,7 +222,8 @@ registerAnonymousEventHandler("sysDropEvent", "GUIDropManager.ImageDrop")</scrip
 				<script>local function deleteImage(s) 
     GUIDropImages[string.gsub(s.name,"GUIDropImages%.","")] = nil  
     GUIDropImages[string.gsub(s.name.."Label", "GUIDropImages%.","")] = nil
-    table.remove(Adjustable.Container.all, table.index_of(Adjustable.Container.all, s))
+    table.remove(Adjustable.Container.all_windows, table.index_of(Adjustable.Container.all_windows, s.name))
+    Adjustable.Container.all[s.name] = nil
     if io.exists(getMudletHomeDir().."/AdjustableContainer/"..s.name..".lua") then
         os.remove(getMudletHomeDir().."/AdjustableContainer/"..s.name..".lua")
     end    
@@ -260,7 +265,8 @@ local function convertToLabel(s)
     GUIDropImages[string.gsub(s.name,"GUIDropImages%.","")]:hide()
     GUIDropImages[string.gsub(s.name,"GUIDropImages%.","")] = nil
     GUIDropImages[string.gsub(s.name.."Label", "GUIDropImages%.","")] = nil
-    table.remove(Adjustable.Container.all, table.index_of(Adjustable.Container.all, s))
+    table.remove(Adjustable.Container.all_windows, table.index_of(Adjustable.Container.all_windows, s.name))
+    Adjustable.Container.all[s.name] = nil
     if io.exists(getMudletHomeDir().."/AdjustableContainer/"..s.name..".lua") then
         os.remove(getMudletHomeDir().."/AdjdustableContainer/"..s.name..".lua")
     end  
@@ -297,4 +303,8 @@ end</script>
 			</Script>
 		</ScriptGroup>
 	</ScriptPackage>
+	<KeyPackage />
+	<HelpPackage>
+		<helpURL></helpURL>
+	</HelpPackage>
 </MudletPackage>
